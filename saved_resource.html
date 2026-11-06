@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<!-- saved from url=(0193)https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&locale=en-US&deviceType=desktop&unsafeSkipTargetOriginCheck=true&backgroundMode=transparent#e12 -->
+<html lang="en-US" class="transparentSkybridgeBackground desktopSkybridge dark" data-theme="dark" style="color-scheme: dark; --safe-area-inset-top: 0px; --safe-area-inset-bottom: 0px; --safe-area-inset-left: 0px; --safe-area-inset-right: 0px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>@layer sandbox-defaults{html,body,#root{margin:0;padding:0}}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1a1f">
+<meta name="description" content="AI Lab Python practical programs: 14 Artificial Intelligence laboratory experiments with aim, source code and sample output.">
+<meta name="keywords" content="AI Lab, Python programs, Artificial Intelligence practicals, BFS, DFS, A star, Minimax, 8 Puzzle">
+<link rel="canonical" href="https://ailab.vercel.app/">
+<link rel="manifest" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/manifest.webmanifest">
+<title>8 Puzzle Using Different Heuristics | AI LAB – PYTHON PROGRAMS</title>
+<style>
+:root{--bg:#0f1a1f;--panel:#16252c;--ink:#e3eef0;--mute:#93a7af;--line:#27404a;--acc:#4fc3cf;--soft:#1b3a41;--code:#0a1317;--cink:#d7e7ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+:root[data-theme="light"]{--bg:#eef2f4;--panel:#fff;--ink:#1c2b33;--mute:#5a6b75;--line:#cfd9de;--acc:#0b6e7a;--soft:#d9eef0;--code:#13222a;--cink:#d7e7ea;color-scheme:light}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}.wrap{display:grid;grid-template-columns:270px 1fr;min-height:100vh}nav{background:var(--panel);border-right:1px solid var(--line);padding:18px 12px;position:sticky;top:env(safe-area-inset-top,0px);height:100vh;overflow:auto}nav h1{font-size:18px;line-height:1.35;margin:0 8px 4px}nav p{margin:0 8px 14px;color:var(--mute);font-size:13px}.nav-actions{display:flex;gap:6px;margin:0 0 10px}.nav-actions button{flex:1;min-width:0}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}.primary{background:var(--acc);color:#fff;border:0;border-radius:6px;padding:9px 12px;font-size:14px}.primary:hover{filter:brightness(1.07)}.download-page{display:block;width:calc(100% - 16px);text-align:center;margin:0 8px 12px}.search{width:calc(100% - 16px);margin:0 8px 10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:9px 10px;font:14px system-ui}.home-link,.program-link{display:flex;gap:10px;width:100%;text-align:left;border:0;background:none;color:var(--ink);padding:7px 10px;border-radius:6px;font:inherit;font-size:14.5px;text-decoration:none;align-items:flex-start}.home-link{margin-bottom:4px}.program-link b{min-width:22px;color:var(--mute);font-weight:600}.program-link:hover,.home-link:hover{background:var(--soft)}.program-link[aria-current="true"],.home-link[aria-current="true"]{background:var(--acc);color:#fff}.program-link[aria-current="true"] b{color:#fff}.nav-list{display:flex;flex-direction:column;gap:2px}.nav-bottom{border-top:1px solid var(--line);margin-top:12px;padding-top:12px;display:flex;gap:6px}.nav-bottom button{flex:1}main{padding:26px clamp(14px,4vw,44px);max-width:900px;min-width:0}h2{font-size:26px;line-height:1.3;margin:0 0 8px}h3{font-size:16px;margin:22px 0 8px}.subtitle{color:var(--mute);margin:0 0 22px}.aim{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:0;white-space:pre-line}.head{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--code);color:var(--cink);padding:6px 12px;border-radius:8px 8px 0 0;font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.head .btns{display:flex;gap:6px;flex-wrap:wrap}.copy,.download{background:var(--acc);color:#fff;border:0;border-radius:5px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer}.copy:hover,.download:hover{filter:brightness(1.08)}pre{margin:0;background:var(--code);color:var(--cink);padding:14px 16px;border-radius:0 0 8px 8px;overflow-x:auto;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;border-top:1px solid #29414a;tab-size:4;white-space:pre}.output{border-radius:8px;border-top:0}.section-label{font-weight:700}.program-meta{color:var(--mute);font-size:13px;margin-top:18px}.pager{display:flex;justify-content:space-between;gap:12px;margin-top:24px;border-top:1px solid var(--line);padding-top:16px}.pager button{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:6px;padding:8px 12px}.pager button:disabled{opacity:.4;cursor:not-allowed}.home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:20px}.home-card{display:flex;align-items:flex-start;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:12px;color:var(--ink);text-align:left;text-decoration:none}.home-card:hover{border-color:var(--acc);background:var(--soft)}.home-card b{color:var(--acc);min-width:24px}.empty{color:var(--mute);padding:10px 8px;font-size:14px}.footer{border-top:1px solid var(--line);margin-top:30px;padding-top:14px;color:var(--mute);font-size:13px}.theme-toggle{width:calc(100% - 16px);margin:4px 8px 0;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:7px;font-size:13px}
+@media(max-width:760px){.wrap{display:block}nav{position:static;height:auto;max-height:none;border-right:0;border-bottom:1px solid var(--line);padding:14px 12px}nav .nav-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:4px}.program-link{width:auto;max-width:100%;padding:6px 9px;font-size:13.5px}.home-link{display:inline-flex;width:auto}.nav-actions{margin-bottom:8px}.search{max-width:420px}main{padding:22px 14px;max-width:none}h2{font-size:23px}.home-grid{grid-template-columns:1fr}.pager button{font-size:13px;padding:8px 9px}}
+@media print{body{background:#fff;color:#111;font-size:12pt}.wrap{display:block}nav,.pager,.head .btns,.footer{display:none!important}main{max-width:none;padding:0}.aim,pre{break-inside:avoid;border:1px solid #bbb;background:#fff!important;color:#111!important}h2{font-size:20pt}h3{margin-top:16pt}pre{white-space:pre-wrap;overflow:visible;font-size:9pt}.head{background:#fff;color:#111;border:1px solid #bbb}.aim{margin-bottom:12pt}.program-meta{display:none}}
+</style>
+<style>html, body, #root {
+      margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom: 0;
+      
+    }
+html,body,#root{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}html,body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Helvetica Neue,Arial,sans-serif!important}button,input,textarea,select{font-family:inherit}html{background-color:transparent}html.chatgptOled.dark,html.mobileSkybridge.dark{background-color:#000}@supports (font: -apple-system-body){html.mobileSkybridge{font:-apple-system-body}}html.desktopSkybridge.dark{background-color:#1e1e1e}html.transparentSkybridgeBackground,html.transparentSkybridgeBackground.dark{background-color:transparent}html.androidSkybridge,html.androidSkybridge body,html.androidSkybridge *{-webkit-tap-highlight-color:rgba(255,255,255,0)}html.androidSkybridge *::selection,html.androidSkybridge *::-moz-selection{background:#fff0;color:inherit}</style></head>
+<body>
+<div class="wrap">
+<nav aria-label="Program navigation">
+  <h1>AI LAB – PYTHON PROGRAMS</h1>
+  <p>Artificial Intelligence Laboratory Practical Programs</p>
+  <button class="primary download-page" id="downloadPage" type="button">⇩ Download page (offline)</button>
+  <input class="search" id="search" type="search" placeholder="Search programs..." aria-label="Search programs">
+  <a class="home-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#home" id="homeNav">⌂&nbsp; Home</a>
+  <div class="nav-list" id="programList"><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e1" data-index="0" aria-current="false"><b>1</b><span>Breadth First Search (BFS)</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e2" data-index="1" aria-current="false"><b>2</b><span>Depth First Search (DFS)</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e3" data-index="2" aria-current="false"><b>3</b><span>Best First Search</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e4" data-index="3" aria-current="false"><b>4</b><span>Heuristic Search</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e5" data-index="4" aria-current="false"><b>5</b><span>A* and AO* Search Algorithms</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e6" data-index="5" aria-current="false"><b>6</b><span>Water Jug Problem</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e7" data-index="6" aria-current="false"><b>7</b><span>Alpha-Beta Pruning Algorithm</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e8" data-index="7" aria-current="false"><b>8</b><span>8 Queens Problem</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e9" data-index="8" aria-current="false"><b>9</b><span>Default Reasoning Program</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e10" data-index="9" aria-current="false"><b>10</b><span>Unification Algorithm</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e11" data-index="10" aria-current="false"><b>11</b><span>Basic Rule-Based System</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e12" data-index="11" aria-current="true"><b>12</b><span>8 Puzzle Using Different Heuristics</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e13" data-index="12" aria-current="false"><b>13</b><span>Tic-Tac-Toe Using Minimax Algorithm</span></a><a class="program-link" href="https://codex-inline-visualization-ac39837f18e782f6.web-sandbox.oaiusercontent.com/?app=skybridge&amp;locale=en-US&amp;deviceType=desktop&amp;unsafeSkipTargetOriginCheck=true&amp;backgroundMode=transparent#e14" data-index="13" aria-current="false"><b>14</b><span>Sentence Palindrome Program</span></a></div>
+  <div class="nav-bottom"><button class="primary" id="printNav" type="button">Print</button><button class="primary" id="themeToggle" type="button">Light theme</button></div>
+</nav>
+<main id="main" tabindex="-1" aria-live="polite"><h2>Program 12: 8 Puzzle Using Different Heuristics</h2><p class="aim">Aim: To solve the 8 Puzzle using A* search with misplaced-tile and Manhattan-distance heuristics.</p><h3 class="section-label">Program</h3><div class="head"><span>program_12_eight_puzzle_heuristics.py</span><div class="btns"><button class="download" type="button">Download Python File</button><button class="copy" type="button">Copy Code</button></div></div><pre aria-label="Python source code"><span class="tok-keyword">import</span> heapq
+
+start = (<span class="tok-num">1</span>, <span class="tok-num">2</span>, <span class="tok-num">3</span>, <span class="tok-num">4</span>, <span class="tok-num">0</span>, <span class="tok-num">6</span>, <span class="tok-num">7</span>, <span class="tok-num">5</span>, <span class="tok-num">8</span>)
+goal = (<span class="tok-num">1</span>, <span class="tok-num">2</span>, <span class="tok-num">3</span>, <span class="tok-num">4</span>, <span class="tok-num">5</span>, <span class="tok-num">6</span>, <span class="tok-num">7</span>, <span class="tok-num">8</span>, <span class="tok-num">0</span>)
+
+<span class="tok-keyword">def</span> misplaced(state):
+    <span class="tok-keyword">return</span> <span class="tok-builtin">sum</span>(tile != <span class="tok-num">0</span> <span class="tok-keyword">and</span> tile != goal[i] <span class="tok-keyword">for</span> i, tile <span class="tok-keyword">in</span> <span class="tok-builtin">enumerate</span>(state))
+
+<span class="tok-keyword">def</span> manhattan(state):
+    total = <span class="tok-num">0</span>
+    <span class="tok-keyword">for</span> i, tile <span class="tok-keyword">in</span> <span class="tok-builtin">enumerate</span>(state):
+        <span class="tok-keyword">if</span> tile:
+            j = goal.index(tile)
+            total += <span class="tok-builtin">abs</span>(i // <span class="tok-num">3</span> - j // <span class="tok-num">3</span>) + <span class="tok-builtin">abs</span>(i % <span class="tok-num">3</span> - j % <span class="tok-num">3</span>)
+    <span class="tok-keyword">return</span> total
+
+<span class="tok-keyword">def</span> solve(heuristic):
+    queue = [(heuristic(start), <span class="tok-num">0</span>, start)]
+    best = {start: <span class="tok-num">0</span>}
+    <span class="tok-keyword">while</span> queue:
+        _, steps, state = heapq.heappop(queue)
+        <span class="tok-keyword">if</span> steps != best[state]:
+            <span class="tok-keyword">continue</span>
+        <span class="tok-keyword">if</span> state == goal:
+            <span class="tok-keyword">return</span> steps
+        zero = state.index(<span class="tok-num">0</span>)
+        <span class="tok-keyword">for</span> move <span class="tok-keyword">in</span> (-<span class="tok-num">3</span>, <span class="tok-num">3</span>, -<span class="tok-num">1</span>, <span class="tok-num">1</span>):
+            new = zero + move
+            <span class="tok-keyword">if</span> <span class="tok-num">0</span> &lt;= new &lt; <span class="tok-num">9</span> <span class="tok-keyword">and</span> <span class="tok-keyword">not</span> (move == -<span class="tok-num">1</span> <span class="tok-keyword">and</span> zero % <span class="tok-num">3</span> == <span class="tok-num">0</span>) \
+                    <span class="tok-keyword">and</span> <span class="tok-keyword">not</span> (move == <span class="tok-num">1</span> <span class="tok-keyword">and</span> zero % <span class="tok-num">3</span> == <span class="tok-num">2</span>):
+                board = <span class="tok-builtin">list</span>(state)
+                board[zero], board[new] = board[new], board[zero]
+                child = <span class="tok-builtin">tuple</span>(board)
+                <span class="tok-keyword">if</span> steps + <span class="tok-num">1</span> &lt; best.get(child, <span class="tok-num">99</span>):
+                    best[child] = steps + <span class="tok-num">1</span>
+                    heapq.heappush(queue, (steps + <span class="tok-num">1</span> + heuristic(child),
+                                           steps + <span class="tok-num">1</span>, child))
+    <span class="tok-keyword">return</span> -<span class="tok-num">1</span>
+
+<span class="tok-builtin">print</span>(<span class="tok-string">"Moves using Misplaced Tiles:"</span>, solve(misplaced))
+<span class="tok-builtin">print</span>(<span class="tok-string">"Moves using Manhattan Distance:"</span>, solve(manhattan))
+</pre><h3 class="section-label">Output</h3><pre class="output">Moves using Misplaced Tiles: 2
+Moves using Manhattan Distance: 2</pre><div class="pager"><button>← Previous Program</button><button>Print Program</button><button>Next Program →</button></div><div class="footer">AI LAB – PYTHON PROGRAMS · Program 12 of 14</div></main>
+</div>
+<script>
+const PROGRAMS = [{"title": "Breadth First Search (BFS)", "aim": "To implement Breadth First Search and traverse a graph level by level using a queue.", "filename": "program_01_bfs.py", "code": "from collections import deque\n\ngraph = {\"A\": [\"B\", \"C\"], \"B\": [\"D\", \"E\"],\n         \"C\": [\"F\"], \"D\": [], \"E\": [], \"F\": []}\n\nqueue = deque([\"A\"])\nvisited = {\"A\"}\norder = []\n\nwhile queue:\n    node = queue.popleft()\n    order.append(node)\n    for neighbour in graph[node]:\n        if neighbour not in visited:\n            visited.add(neighbour)\n            queue.append(neighbour)\n\nprint(\"BFS Traversal:\", \" -> \".join(order))\n", "output": "BFS Traversal: A -> B -> C -> D -> E -> F"}, {"title": "Depth First Search (DFS)", "aim": "To implement Depth First Search and traverse a graph by exploring each branch before backtracking.", "filename": "program_02_dfs.py", "code": "graph = {\"A\": [\"B\", \"C\"], \"B\": [\"D\", \"E\"],\n         \"C\": [\"F\"], \"D\": [], \"E\": [], \"F\": []}\nvisited = set()\norder = []\n\ndef dfs(node):\n    visited.add(node)\n    order.append(node)\n    for neighbour in graph[node]:\n        if neighbour not in visited:\n            dfs(neighbour)\n\ndfs(\"A\")\nprint(\"DFS Traversal:\", \" -> \".join(order))\n", "output": "DFS Traversal: A -> B -> D -> E -> C -> F"}, {"title": "Best First Search", "aim": "To implement Greedy Best First Search by selecting the frontier node with the lowest heuristic value.", "filename": "program_03_best_first_search.py", "code": "import heapq\n\ngraph = {\"S\": [\"A\", \"B\"], \"A\": [\"C\", \"D\"],\n         \"B\": [\"E\", \"G\"], \"C\": [], \"D\": [], \"E\": [], \"G\": []}\nheuristic = {\"S\": 7, \"A\": 6, \"B\": 2, \"C\": 5, \"D\": 4, \"E\": 1, \"G\": 0}\n\nqueue = [(heuristic[\"S\"], \"S\", [\"S\"])]\nvisited = set()\n\nwhile queue:\n    _, node, path = heapq.heappop(queue)\n    if node == \"G\":\n        break\n    if node in visited:\n        continue\n    visited.add(node)\n    for neighbour in graph[node]:\n        if neighbour not in visited:\n            heapq.heappush(queue, (heuristic[neighbour], neighbour,\n                                   path + [neighbour]))\n\nprint(\"Best First Path:\", \" -> \".join(path))\n", "output": "Best First Path: S -> B -> G"}, {"title": "Heuristic Search", "aim": "To demonstrate heuristic search using Hill Climbing, choosing the neighbour that appears closest to the goal.", "filename": "program_04_heuristic_search.py", "code": "graph = {\"A\": [\"B\", \"C\"], \"B\": [\"D\"], \"C\": [\"E\"],\n         \"D\": [\"G\"], \"E\": [\"G\"], \"G\": []}\nheuristic = {\"A\": 4, \"B\": 3, \"C\": 2, \"D\": 1, \"E\": 1, \"G\": 0}\n\nnode = \"A\"\npath = [node]\nwhile node != \"G\":\n    choices = [v for v in graph[node] if heuristic[v] < heuristic[node]]\n    if not choices:\n        break\n    node = min(choices, key=heuristic.get)\n    path.append(node)\n\nprint(\"Heuristic Search Path:\", \" -> \".join(path))\n", "output": "Heuristic Search Path: A -> C -> E -> G"}, {"title": "A* and AO* Search Algorithms", "aim": "To implement A* and AO* search algorithms using heuristic information to find an optimal path or solution subgraph.", "sections": [{"label": "5(a). A* Search Algorithm", "filename": "program_05a_astar_search.py", "code": "import heapq\n\ngraph = {\"A\": {\"B\": 1, \"C\": 4}, \"B\": {\"C\": 2, \"D\": 5},\n         \"C\": {\"D\": 1, \"G\": 7}, \"D\": {\"G\": 3}, \"G\": {}}\nh = {\"A\": 7, \"B\": 6, \"C\": 4, \"D\": 3, \"G\": 0}\n\nqueue = [(h[\"A\"], 0, \"A\", [\"A\"])]\nbest = {\"A\": 0}\nwhile queue:\n    _, cost, node, path = heapq.heappop(queue)\n    if node == \"G\":\n        break\n    if cost != best[node]:\n        continue\n    for neighbour, weight in graph[node].items():\n        new_cost = cost + weight\n        if new_cost < best.get(neighbour, float(\"inf\")):\n            best[neighbour] = new_cost\n            heapq.heappush(queue, (new_cost + h[neighbour], new_cost,\n                                   neighbour, path + [neighbour]))\n\nprint(\"A* Path:\", \" -> \".join(path))\nprint(\"Total Cost:\", cost)\n", "output": "A* Path: A -> B -> C -> D -> G\nTotal Cost: 7"}, {"label": "5(b). AO* Search Algorithm", "filename": "program_05b_aostar_search.py", "code": "graph = {\n    \"A\": [[\"B\", \"C\"], [\"D\"]],\n    \"B\": [[\"E\"], [\"F\"]],\n    \"C\": [[\"G\"]],\n    \"D\": [[\"H\", \"I\"]]\n}\nchoice = {}\n\ndef ao_star(node):\n    if node not in graph:\n        return 0\n    options = []\n    for group in graph[node]:\n        cost = sum(1 + ao_star(child) for child in group)\n        options.append((cost, group))\n    best, choice[node] = min(options, key=lambda item: item[0])\n    return best\n\ndef show(node):\n    if node in choice:\n        children = choice[node]\n        print(node, \"->\", \" AND \".join(children))\n        for child in children:\n            show(child)\n\ntotal = ao_star(\"A\")\nprint(\"AO* Solution Graph:\")\nshow(\"A\")\nprint(\"Total Cost:\", total)\n", "output": "AO* Solution Graph:\nA -> D\nD -> H AND I\nTotal Cost: 3"}]}, {"title": "Water Jug Problem", "aim": "To solve the Water Jug Problem using state-space search to obtain the required quantity of water.", "filename": "program_06_water_jug.py", "code": "from collections import deque\n\nstart = (0, 0)\nqueue = deque([(start, [])])\nvisited = {start}\n\nwhile queue:\n    (a, b), path = queue.popleft()\n    if a == 2 or b == 2:\n        print(\"Water Jug Solution:\")\n        print(\"Start:\", start)\n        for action, state in path:\n            print(action + \":\", state)\n        break\n    x = min(a, 3 - b)\n    y = min(b, 4 - a)\n    moves = [\n        ((4, b), \"Fill 4L jug\"), ((a, 3), \"Fill 3L jug\"),\n        ((0, b), \"Empty 4L jug\"), ((a, 0), \"Empty 3L jug\"),\n        ((a - x, b + x), \"Pour 4L into 3L\"),\n        ((a + y, b - y), \"Pour 3L into 4L\")\n    ]\n    for state, action in moves:\n        if state not in visited:\n            visited.add(state)\n            queue.append((state, path + [(action, state)]))\n", "output": "Water Jug Solution:\nStart: (0, 0)\nFill 3L jug: (0, 3)\nPour 3L into 4L: (3, 0)\nFill 3L jug: (3, 3)\nPour 3L into 4L: (4, 2)"}, {"title": "Alpha-Beta Pruning Algorithm", "aim": "To implement Alpha-Beta Pruning to reduce the number of game-tree nodes evaluated by the Minimax algorithm.", "filename": "program_07_alpha_beta_pruning.py", "code": "values = [3, 5, 6, 9, 1, 2, 0, -1]\n\ndef alpha_beta(depth, index, maximizing, alpha, beta):\n    if depth == 3:\n        return values[index]\n    if maximizing:\n        best = float(\"-inf\")\n        for i in range(2):\n            best = max(best, alpha_beta(depth + 1, index * 2 + i,\n                                       False, alpha, beta))\n            alpha = max(alpha, best)\n            if alpha >= beta:\n                break\n        return best\n    best = float(\"inf\")\n    for i in range(2):\n        best = min(best, alpha_beta(depth + 1, index * 2 + i,\n                                   True, alpha, beta))\n        beta = min(beta, best)\n        if alpha >= beta:\n            break\n    return best\n\nprint(\"Optimal Value:\", alpha_beta(0, 0, True, float(\"-inf\"), float(\"inf\")))\n", "output": "Optimal Value: 5"}, {"title": "8 Queens Problem", "aim": "To place eight queens on an 8 × 8 chessboard so that no two queens attack each other.", "filename": "program_08_eight_queens.py", "code": "N = 8\nboard = [-1] * N\n\ndef safe(row, col):\n    for r in range(row):\n        if board[r] == col or abs(board[r] - col) == row - r:\n            return False\n    return True\n\ndef solve(row):\n    if row == N:\n        return True\n    for col in range(N):\n        if safe(row, col):\n            board[row] = col\n            if solve(row + 1):\n                return True\n    return False\n\nsolve(0)\nprint(\"8 Queens Solution:\")\nfor col in board:\n    print(\" \".join(\"*Q*\" if i == col else \"_\" for i in range(N)))\n", "output": "8 Queens Solution:\n*Q* _ _ _ _ _ _ _\n_ _ _ _ *Q* _ _ _\n_ _ _ _ _ _ _ *Q*\n_ _ _ _ _ *Q* _ _\n_ _ *Q* _ _ _ _ _\n_ _ _ _ _ _ *Q* _\n_ *Q* _ _ _ _ _ _\n_ _ _ *Q* _ _ _ _"}, {"title": "Default Reasoning Program", "aim": "To demonstrate default reasoning by assuming birds normally fly, except when an exception such as a penguin is known.", "filename": "program_09_default_reasoning.py", "code": "def reasoning(name, is_bird, is_penguin=False):\n    if is_penguin:\n        return name + \" cannot fly (exception).\"\n    if is_bird:\n        return name + \" can fly by default.\"\n    return \"No conclusion.\"\n\nprint(\"Default: Birds can fly.\")\nprint(reasoning(\"Tweety\", True))\nprint(\"Exception: Penguins cannot fly.\")\nprint(reasoning(\"Pingu\", True, True))\n", "output": "Default: Birds can fly.\nTweety can fly by default.\nException: Penguins cannot fly.\nPingu cannot fly (exception)."}, {"title": "Unification Algorithm", "aim": "To implement unification and find substitutions that make two logical expressions identical.", "filename": "program_10_unification.py", "code": "def resolve(term, substitutions):\n    while isinstance(term, str) and term in substitutions:\n        term = substitutions[term]\n    return term\n\ndef unify(x, y, substitutions):\n    x, y = resolve(x, substitutions), resolve(y, substitutions)\n    if x == y:\n        return True\n    if isinstance(x, str) and x.startswith(\"?\"):\n        substitutions[x] = y\n        return True\n    if isinstance(y, str) and y.startswith(\"?\"):\n        substitutions[y] = x\n        return True\n    if isinstance(x, tuple) and isinstance(y, tuple) and len(x) == len(y):\n        return all(unify(a, b, substitutions) for a, b in zip(x, y))\n    return False\n\nsubstitutions = {}\nfirst = (\"Likes\", \"?x\", \"?y\")\nsecond = (\"Likes\", \"John\", \"Mary\")\nif unify(first, second, substitutions):\n    print(\"Unifier:\", substitutions)\nelse:\n    print(\"Unification failed.\")\n", "output": "Unifier: {'?x': 'John', '?y': 'Mary'}"}, {"title": "Basic Rule-Based System", "aim": "To build a simple rule-based system that derives new facts by applying rules to known facts.", "filename": "program_11_rule_based_system.py", "code": "facts = {\"fever\", \"cough\"}\nrules = [\n    ({\"fever\", \"cough\"}, \"flu\"),\n    ({\"flu\"}, \"consult_doctor\")\n]\n\nfor conditions, result in rules:\n    if conditions.issubset(facts) and result not in facts:\n        facts.add(result)\n        print(\"Derived:\", result)\n\nprint(\"Final Facts:\", \", \".join(sorted(facts)))\n", "output": "Derived: flu\nDerived: consult_doctor\nFinal Facts: consult_doctor, cough, fever, flu"}, {"title": "8 Puzzle Using Different Heuristics", "aim": "To solve the 8 Puzzle using A* search with misplaced-tile and Manhattan-distance heuristics.", "filename": "program_12_eight_puzzle_heuristics.py", "code": "import heapq\n\nstart = (1, 2, 3, 4, 0, 6, 7, 5, 8)\ngoal = (1, 2, 3, 4, 5, 6, 7, 8, 0)\n\ndef misplaced(state):\n    return sum(tile != 0 and tile != goal[i] for i, tile in enumerate(state))\n\ndef manhattan(state):\n    total = 0\n    for i, tile in enumerate(state):\n        if tile:\n            j = goal.index(tile)\n            total += abs(i // 3 - j // 3) + abs(i % 3 - j % 3)\n    return total\n\ndef solve(heuristic):\n    queue = [(heuristic(start), 0, start)]\n    best = {start: 0}\n    while queue:\n        _, steps, state = heapq.heappop(queue)\n        if steps != best[state]:\n            continue\n        if state == goal:\n            return steps\n        zero = state.index(0)\n        for move in (-3, 3, -1, 1):\n            new = zero + move\n            if 0 <= new < 9 and not (move == -1 and zero % 3 == 0) \\\n                    and not (move == 1 and zero % 3 == 2):\n                board = list(state)\n                board[zero], board[new] = board[new], board[zero]\n                child = tuple(board)\n                if steps + 1 < best.get(child, 99):\n                    best[child] = steps + 1\n                    heapq.heappush(queue, (steps + 1 + heuristic(child),\n                                           steps + 1, child))\n    return -1\n\nprint(\"Moves using Misplaced Tiles:\", solve(misplaced))\nprint(\"Moves using Manhattan Distance:\", solve(manhattan))\n", "output": "Moves using Misplaced Tiles: 2\nMoves using Manhattan Distance: 2"}, {"title": "Tic-Tac-Toe Using Minimax Algorithm", "aim": "To play Tic-Tac-Toe against the computer using the Minimax algorithm to choose the best move.", "filename": "program_13_tic_tac_toe_minimax.py", "test_input": "1\n2\n4\n", "code": "board = [\" \"] * 9\nwins = [(0,1,2), (3,4,5), (6,7,8), (0,3,6),\n        (1,4,7), (2,5,8), (0,4,8), (2,4,6)]\n\ndef winner():\n    for a, b, c in wins:\n        if board[a] != \" \" and board[a] == board[b] == board[c]:\n            return board[a]\n    return None\n\ndef minimax(player):\n    result = winner()\n    if result == \"O\": return 1\n    if result == \"X\": return -1\n    if \" \" not in board: return 0\n    scores = []\n    for i in range(9):\n        if board[i] == \" \":\n            board[i] = player\n            scores.append(minimax(\"X\" if player == \"O\" else \"O\"))\n            board[i] = \" \"\n    return max(scores) if player == \"O\" else min(scores)\n\ndef best_move():\n    best, move = -2, -1\n    for i in range(9):\n        if board[i] == \" \":\n            board[i] = \"O\"\n            score = minimax(\"X\")\n            board[i] = \" \"\n            if score > best:\n                best, move = score, i\n    return move\n\nprint(\"You are X; AI is O.\")\nwhile not winner() and \" \" in board:\n    move = int(input(\"Your move (1-9): \")) - 1\n    if move not in range(9) or board[move] != \" \":\n        print(\"Invalid move. Try again.\")\n        continue\n    board[move] = \"X\"\n    if winner() or \" \" not in board:\n        break\n    move = best_move()\n    board[move] = \"O\"\n    print(\"AI chooses:\", move + 1)\n\nfor i in range(0, 9, 3):\n    print(\" | \".join(x if x != \" \" else \"_\" for x in board[i:i+3]))\n    if i < 6:\n        print(\"--+---+--\")\n\nprint(\"AI wins!\" if winner() == \"O\" else\n      \"You win!\" if winner() == \"X\" else \"Game drawn!\")\n", "output": "You are X; AI is O.\nYour move (1-9): 1\nAI chooses: 5\nYour move (1-9): 2\nAI chooses: 3\nYour move (1-9): 4\nAI chooses: 7\nX | X | O\n--+---+--\nX | O | _\n--+---+--\nO | _ | _\nAI wins!"}, {"title": "Sentence Palindrome Program", "aim": "To check whether a sentence is a palindrome by ignoring spaces, punctuation and letter case.", "filename": "program_14_sentence_palindrome.py", "test_input": "Madam, I'm Adam.\n", "code": "sentence = input(\"Enter a sentence: \")\nclean = \"\".join(ch.lower() for ch in sentence if ch.isalnum())\n\nif clean == clean[::-1]:\n    print(\"It is a palindrome.\")\nelse:\n    print(\"It is not a palindrome.\")\n", "output": "Enter a sentence: Madam, I'm Adam.\nIt is a palindrome."}];
+const main = document.getElementById('main');
+const list = document.getElementById('programList');
+const search = document.getElementById('search');
+const homeNav = document.getElementById('homeNav');
+let activeIndex = 0;
+
+function esc(value){return String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function highlight(code){
+  const token = /(#[^\n]*|\b(?:def|return|if|else|elif|for|while|in|not|and|or|is|import|from|as|class|True|False|None|break|continue|try|except|with|lambda|global)\b|\b(?:print|range|len|set|list|dict|tuple|sum|min|max|abs|enumerate|zip|sorted|input|int|str|float|super)\b|\b\d+(?:\.\d+)?\b|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g;
+  let out='', last=0, m;
+  while((m=token.exec(code))!==null){out+=esc(code.slice(last,m.index));const s=m[0];let cls='tok-num';if(s.startsWith('#'))cls='tok-comment';else if(s[0]==='"'||s[0]==="'")cls='tok-string';else if(/^(def|return|if|else|elif|for|while|in|not|and|or|is|import|from|as|class|True|False|None|break|continue|try|except|with|lambda|global)$/.test(s))cls='tok-keyword';else if(/^(print|range|len|set|list|dict|tuple|sum|min|max|abs|enumerate|zip|sorted|input|int|str|float|super)$/.test(s))cls='tok-builtin';out+='<span class="'+cls+'">'+esc(s)+'</span>';last=token.lastIndex;}
+  out+=esc(code.slice(last));return out;
+}
+function buildNav(filter=''){
+  list.innerHTML='';let count=0;
+  PROGRAMS.forEach((p,i)=>{if(!p.title.toLowerCase().includes(filter.toLowerCase()))return;count++;const a=document.createElement('a');a.className='program-link';a.href='#e'+(i+1);a.dataset.index=i;a.setAttribute('aria-current',location.hash==='#e'+(i+1)?'true':'false');const b=document.createElement('b');b.textContent=String(i+1);const s=document.createElement('span');s.textContent=p.title;a.append(b,s);list.appendChild(a);});
+  if(!count){const d=document.createElement('div');d.className='empty';d.textContent='No programs found.';list.appendChild(d);}
+}
+function downloadFile(name, content, type='text/plain'){
+  const blob=new Blob([content],{type:type+';charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function copyText(text,button){
+  try{await navigator.clipboard.writeText(text);button.textContent='Copied';}
+  catch(e){const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();button.textContent='Copied';}
+  setTimeout(()=>button.textContent='Copy',1200);
+}
+function renderHome(){
+  homeNav.setAttribute('aria-current','true');
+  main.innerHTML='<h2>AI Lab – Python Programs</h2><p class="subtitle">Artificial Intelligence Laboratory Practical Programs</p><p class="aim">This lab contains 14 Python practical programs. Select a program from the navigation panel to view its AIM, PROGRAM and OUTPUT. You can copy the source code, download an individual Python file or print a program.</p><h3>All Programs</h3><div class="home-grid" id="homeGrid"></div><div class="footer">AI LAB – PYTHON PROGRAMS · 14 practical programs</div>';
+  const grid=document.getElementById('homeGrid');PROGRAMS.forEach((p,i)=>{const a=document.createElement('a');a.className='home-card';a.href='#e'+(i+1);const n=document.createElement('b');n.textContent=String(i+1).padStart(2,'0');const t=document.createElement('span');t.textContent=p.title;a.append(n,t);grid.appendChild(a);});
+  document.title='AI LAB – PYTHON PROGRAMS | Artificial Intelligence Laboratory Practicals';
+  buildNav(search.value);
+}
+function renderProgram(i){
+  activeIndex=i;const p=PROGRAMS[i];homeNav.removeAttribute('aria-current');
+  main.innerHTML='';
+  const h=document.createElement('h2');h.textContent='Program '+(i+1)+': '+p.title;main.appendChild(h);
+  const aim=document.createElement('p');aim.className='aim';aim.textContent='Aim: '+p.aim;main.appendChild(aim);
+  const sections=p.sections || [{label:'Program',filename:p.filename,code:p.code,output:p.output}];
+  sections.forEach((section, index)=>{
+    const ph=document.createElement('h3');ph.className='section-label';
+    ph.textContent=section.label || 'Program';main.appendChild(ph);
+    const head=document.createElement('div');head.className='head';
+    const fname=document.createElement('span');fname.textContent=section.filename;head.appendChild(fname);
+    const buttons=document.createElement('div');buttons.className='btns';
+    const dl=document.createElement('button');dl.className='download';dl.textContent='Download Python File';dl.type='button';dl.addEventListener('click',()=>downloadFile(section.filename,section.code));
+    const cp=document.createElement('button');cp.className='copy';cp.textContent='Copy Code';cp.type='button';cp.addEventListener('click',()=>copyText(section.code,cp));
+    buttons.append(dl,cp);head.appendChild(buttons);main.appendChild(head);
+    const code=document.createElement('pre');code.innerHTML=highlight(section.code);code.setAttribute('aria-label','Python source code');main.appendChild(code);
+    const oh=document.createElement('h3');oh.className='section-label';oh.textContent='Output';main.appendChild(oh);
+    const output=document.createElement('pre');output.className='output';output.textContent=section.output;main.appendChild(output);
+  });
+  const pager=document.createElement('div');pager.className='pager';
+  const prev=document.createElement('button');prev.textContent=i===0?'← Home':'← Previous Program';prev.addEventListener('click',()=>location.hash=i===0?'home':'e'+i);
+  const print=document.createElement('button');print.textContent='Print Program';print.addEventListener('click',()=>window.print());
+  const next=document.createElement('button');next.textContent=i===PROGRAMS.length-1?'Back to Home':'Next Program →';next.addEventListener('click',()=>location.hash=i===PROGRAMS.length-1?'home':'e'+(i+2));
+  pager.append(prev,print,next);main.appendChild(pager);
+  const footer=document.createElement('div');footer.className='footer';footer.textContent='AI LAB – PYTHON PROGRAMS · Program '+(i+1)+' of '+PROGRAMS.length;main.appendChild(footer);
+  document.title=p.title+' | AI LAB – PYTHON PROGRAMS';
+  buildNav(search.value);window.scrollTo(0,0);
+}
+function route(){const m=/^#e(\d+)$/.exec(location.hash);if(m){const i=Number(m[1])-1;if(i>=0&&i<PROGRAMS.length){renderProgram(i);return;}}renderHome();}
+search.addEventListener('input',()=>buildNav(search.value));
+list.addEventListener('click',e=>{if(e.target.closest('a')){const a=e.target.closest('a');const i=Number(a.dataset.index);if(Number.isInteger(i))renderProgram(i);}});
+homeNav.addEventListener('click',()=>renderHome());
+document.getElementById('downloadPage').addEventListener('click',()=>downloadFile('AI_Lab_Python_Programs_Offline.html',document.documentElement.outerHTML,'text/html'));
+document.getElementById('printNav').addEventListener('click',()=>window.print());
+document.getElementById('themeToggle').addEventListener('click',()=>{const light=document.documentElement.dataset.theme!=='light';document.documentElement.dataset.theme=light?'light':'dark';document.getElementById('themeToggle').textContent=light?'Dark theme':'Light theme';});
+window.addEventListener('hashchange',route);
+route();
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script>
+<style>
+.tok-keyword{color:#c792ea}.tok-builtin{color:#82aaff}.tok-string{color:#c3e88d}.tok-comment{color:#78909c}.tok-num{color:#f78c6c}
+</style>
+
+<script>globalThis.__codexVisualizationInitialGlobals={"statePersistence":"none","stateModelContext":"none","visualizationStyleVariables":{"--accent":"rgb(19, 52, 99)","--accent-foreground":"rgb(44, 103, 197)","--background":"rgb(0, 0, 0)","--border":"rgba(255, 255, 255, 0.15)","--border-strong":"rgba(255, 255, 255, 0.2)","--card":"color-mix(in oklab, rgb(237, 237, 237) 5%, transparent)","--card-foreground":"rgb(237, 237, 237)","--corner-shape":"round","--control-spacing":"12px","--cursor-interaction":"pointer","--destructive":"rgb(226, 85, 7)","--font-mono":"ui-monospace, SFMono-Regular, \"SF Mono\", menlo, consolas, \"Liberation Mono\", monospace","--font-sans":"-apple-system-body, ui-sans-serif, -apple-system, system-ui, \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\"","--font-size-base":"16px","--font-weight-normal":"400","--foreground":"rgb(237, 237, 237)","--input":"rgba(255, 255, 255, 0.2)","--muted":"color-mix(in srgb, rgb(237, 237, 237) 10%, transparent)","--muted-foreground":"rgb(175, 175, 175)","--popover":"rgb(48, 48, 48)","--popover-foreground":"rgb(237, 237, 237)","--primary":"rgb(44, 103, 197)","--primary-foreground":"rgb(13, 13, 13)","--radius":"8px","--radius-2xl":"16px","--radius-lg":"8px","--radius-md":"6px","--radius-sm":"4px","--ring":"rgb(2, 133, 255)","--secondary":"rgb(48, 48, 48)","--secondary-foreground":"rgb(237, 237, 237)","--blue":"rgb(2, 133, 255)","--orange":"rgb(251, 106, 34)","--green":"rgb(4, 184, 76)","--red":"rgb(250, 66, 62)","--purple":"rgb(146, 79, 247)","--yellow":"rgb(255, 195, 0)","--visualize-paint-gutter":"0px","--viz-series-1":"rgb(44, 103, 197)","--viz-series-2":"#f6d459","--viz-series-3":"#f28ec0","--viz-series-4":"#54ccc2","--viz-series-5":"#71d689","--viz-series-6":"#f79951"},"visualizationTheme":"dark"};</script>
+<style id="codex-visualization-host-theme">:root {}</style>
+<script>
+(() => {
+  // Host colors are defaults; later authored styles can give the same names
+  // their own meaning (for example, --muted as a chart's label color).
+  const hostStyles = document.getElementById("codex-visualization-host-theme");
+  const hostStyle = hostStyles.sheet.cssRules[0].style;
+  // Typography, geometry and interaction cursors still follow the host.
+  const styleForProperty = (property) =>
+    /^--(?:font-|radius|corner-shape$|control-spacing$|cursor-interaction$|icon-size$|visualize-paint-gutter$)/.test(property)
+      ? document.documentElement.style
+      : hostStyle;
+  const initialGlobals =
+    globalThis.__codexVisualizationInitialGlobals ?? globalThis.openai;
+  delete globalThis.__codexVisualizationInitialGlobals;
+  if (initialGlobals?.statePersistence != null) {
+    globalThis.openai ??= {};
+    globalThis.openai.statePersistence = initialGlobals.statePersistence;
+    globalThis.openai.stateModelContext = initialGlobals.stateModelContext ?? "none";
+  }
+  if (!false) {
+    return;
+  }
+  let appliedProperties = [];
+  const applyHostStyleVariables = (styleVariables) => {
+    if (styleVariables == null || typeof styleVariables !== "object") {
+      return;
+    }
+    for (const property of appliedProperties) {
+      styleForProperty(property).removeProperty(property);
+    }
+    appliedProperties = [];
+    for (const [property, value] of Object.entries(styleVariables)) {
+      if (property.startsWith("--") && typeof value === "string") {
+        styleForProperty(property).setProperty(property, value);
+        appliedProperties.push(property);
+      }
+    }
+  };
+
+  const syncHostStyles = (globals) => {
+    applyHostStyleVariables(globals?.visualizationStyleVariables);
+    const sandboxDocument = globalThis.frameElement?.ownerDocument;
+    if (sandboxDocument != null && globals?.visualizationTheme != null) {
+      let colorSchemeMeta = sandboxDocument.querySelector(
+        'meta[name="color-scheme"]',
+      );
+      if (colorSchemeMeta == null) {
+        colorSchemeMeta = sandboxDocument.createElement("meta");
+        colorSchemeMeta.name = "color-scheme";
+        sandboxDocument.head.appendChild(colorSchemeMeta);
+      }
+      colorSchemeMeta.content = globals.visualizationTheme;
+      sandboxDocument.documentElement.style.colorScheme =
+        globals.visualizationTheme;
+      // Paint the host surface behind transparent saved visualization documents.
+      sandboxDocument.documentElement.style.backgroundColor =
+        hostStyle.getPropertyValue("--background");
+    }
+  };
+
+  syncHostStyles(initialGlobals);
+  globalThis.addEventListener("openai:set_globals", (event) => {
+    syncHostStyles(event.detail?.globals);
+  });
+})();
+</script>
+
+
+<script>
+(() => {
+  const reportEnvironmentError = (value) => {
+    const error = value instanceof Error ? value : new Error(String(value));
+    void globalThis.openai
+      .callTool(
+        "__codex_inline_visualization_error__",
+        {
+          message: error.message,
+          name: error.name,
+          stack: error.stack,
+        },
+      )
+      .catch(() => {});
+  };
+
+  globalThis.addEventListener("error", (event) => {
+    if (event.target?.localName === "script") {
+      // A script's own onerror may render a fallback or load an alternative.
+      // Let that handler run; failures it throws still reach the global error path.
+      const handlesError = typeof event.target.onerror === "function";
+      globalThis.queueMicrotask(() => {
+        if (!handlesError && !event.defaultPrevented) {
+          reportEnvironmentError("Visualization script could not be loaded");
+        }
+      });
+    } else if (event.target === globalThis) {
+      // The browser defers resize notifications to another frame; no script threw.
+      if (event.error == null && (
+        event.message === "ResizeObserver loop completed with undelivered notifications." ||
+        event.message === "ResizeObserver loop limit exceeded"
+      )) {
+        return;
+      }
+      reportEnvironmentError(event.error ?? event.message);
+    }
+  }, true);
+  globalThis.addEventListener("unhandledrejection", (event) => {
+    reportEnvironmentError(event.reason);
+  });
+})();
+</script>
+<script id="codex-visualization-variants">
+(() => {
+  let previousSnapshot = "[]";
+  let roots = [];
+  const report = () => {
+    roots = Array.from(
+      document.querySelectorAll(".viz-carousel[data-active-variant]"),
+    ).slice(0, 32);
+    const selectedVariants = roots.flatMap((root, carousel) => {
+      const variant = root.dataset.activeVariant;
+      const label = root.getAttribute("aria-label")?.slice(0, 256);
+      return variant ? [{
+        carousel,
+        ...(label == null ? {} : { label }),
+        variant: variant.slice(0, 256),
+      }] : [];
+    });
+    const snapshot = JSON.stringify(selectedVariants);
+    if (snapshot !== previousSnapshot) {
+      previousSnapshot = snapshot;
+      void globalThis.openai.callTool("__codex_visualization_annotations__", {
+        type: "variants",
+        selectedVariants,
+      }).catch(() => {});
+    }
+  };
+  const observer = new MutationObserver((records) => {
+    if (records.some((record) => record.type === "attributes") || roots.some((root) => !root.isConnected)) {
+      report();
+    }
+  });
+  observer.observe(document, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["data-active-variant"],
+  });
+  report();
+  globalThis.addEventListener("pagehide", () => observer.disconnect(), { once: true });
+})();
+</script>
+<script>
+(() => {
+  const selectorInRoot = (target, root) => {
+    const parts = [];
+    for (let element = target; element != null && parts.length < 64; element = element.parentElement) {
+      const id = element.id && globalThis.CSS?.escape?.(element.id);
+      if (id && id.length <= 256) {
+        const selector = ["#" + id, ...parts].join(" > ");
+        const matches = root.querySelectorAll(selector);
+        if (matches.length === 1 && matches[0] === target) {
+          return selector;
+        }
+      }
+      let index = 1;
+      for (let sibling = element.previousElementSibling; sibling != null; sibling = sibling.previousElementSibling) {
+        if (sibling.localName === element.localName) { index += 1; }
+      }
+      const tag = globalThis.CSS?.escape?.(element.localName) ?? element.localName;
+      parts.unshift(tag + ":nth-of-type(" + index + ")");
+      if (parts.join(" > ").length > 1024) { return null; }
+      if (element.parentElement == null) {
+        const selector = parts.join(" > ");
+        const matches = root.querySelectorAll(selector);
+        return matches.length === 1 && matches[0] === target ? selector : null;
+      }
+    }
+    return null;
+  };
+  const describeTarget = (element) => {
+    if (element == null || !element.isConnected) { return undefined; }
+    const tagName = element.localName.toLowerCase();
+    if (!/^[a-z][a-z0-9-]{0,63}$/.test(tagName)) { return undefined; }
+    const parts = [];
+    let current = element;
+    for (let depth = 0; depth < 16; depth += 1) {
+      const root = current.getRootNode();
+      const selector = selectorInRoot(current, root);
+      if (selector == null) { return undefined; }
+      parts.unshift(selector);
+      if (root === document) {
+        const selector = parts.length === 1 ? parts[0] : "shadow:" + parts.join(">>>");
+        if (selector.length > 1024) { return undefined; }
+        const label = (element.getAttribute("aria-label") || element.getAttribute("title") || "")
+          .replace(/[\u0000-\u001f\u007f-\u009f\u061c\u200e\u200f\u2028-\u202e\u2066-\u2069]/gu, " ")
+          .replace(/\s+/g, " ").trim().slice(0, 160);
+        return { selector, tagName, ...(label ? { label } : {}) };
+      }
+      if (!(root instanceof ShadowRoot) || root.mode !== "open") { return undefined; }
+      current = root.host;
+    }
+    return undefined;
+  };
+  let previousSnapshot = JSON.stringify({ isHovering: false });
+  const reportHover = (event, isHovering, isTouch = false, target) => {
+    const report = isTouch
+      ? { isHovering: false, pointerType: "touch" }
+      : { isHovering, ...(isHovering && target != null ? { target } : {}) };
+    const snapshot = JSON.stringify(report);
+    if (snapshot === previousSnapshot) {
+      return;
+    }
+    previousSnapshot = snapshot;
+    void globalThis.openai
+      .callTool(
+        "__codex_inline_visualization_hover__",
+        { ...report, eventTime: globalThis.performance.timeOrigin + event.timeStamp },
+      )
+      .catch(() => {});
+  };
+
+  let hoveredElement;
+  let isTouchHover = false;
+  let latestHover = null;
+  let latestResetTime = 0;
+  const handlePointerHover = (event) => {
+    const isTouch = event.pointerType === "touch";
+    const element = isTouch ? undefined : event.composedPath().find((element) => element instanceof Element);
+    latestHover = { event, element, isTouch };
+    if (event.type === "pointermove" && element === hoveredElement && isTouch === isTouchHover) {
+      return;
+    }
+    hoveredElement = element;
+    isTouchHover = isTouch;
+    reportHover(event, !isTouch, isTouch, isTouch ? undefined : describeTarget(element));
+  };
+  const clearHover = (event) => {
+    hoveredElement = undefined;
+    isTouchHover = false;
+    latestHover = null;
+    reportHover(event, false);
+  };
+  globalThis.addEventListener("openai:set_globals", (event) => {
+    const resetTime = event.detail?.globals?.visualizationHoverReset;
+    if (typeof resetTime !== "number" || !Number.isFinite(resetTime) || resetTime <= latestResetTime) {
+      return;
+    }
+    latestResetTime = resetTime;
+    const latest = latestHover;
+    hoveredElement = undefined;
+    isTouchHover = false;
+    latestHover = null;
+    previousSnapshot = JSON.stringify({ isHovering: false });
+    // A host-observed exit can arrive after the pointer has already reentered.
+    if (latest != null && globalThis.performance.timeOrigin + latest.event.timeStamp > resetTime) {
+      latestHover = latest;
+      hoveredElement = latest.element;
+      isTouchHover = latest.isTouch;
+      reportHover(latest.event, !latest.isTouch, latest.isTouch,
+        latest.isTouch ? undefined : describeTarget(latest.element));
+    }
+  });
+  globalThis.addEventListener("pointerover", handlePointerHover, { capture: true });
+  // Moves between descendants in one shadow root do not emit pointerover outside
+  // that root. The identity guard avoids selector work while a target is unchanged.
+  globalThis.addEventListener("pointermove", handlePointerHover, { capture: true });
+  globalThis.addEventListener(
+    "pointerout",
+    (event) => {
+      if (event.pointerType !== "touch" && event.relatedTarget == null) {
+        clearHover(event);
+      }
+    },
+    { capture: true },
+  );
+  globalThis.addEventListener("pagehide", clearHover);
+})();
+</script>
+<script>
+(() => {
+  const report = (method) => {
+    void globalThis.openai.callTool("__codex_inline_visualization_input__", { method }).catch(() => {});
+  };
+  globalThis.addEventListener("pointerdown", () => report("pointer"), { capture: true });
+  globalThis.addEventListener("keydown", (event) => {
+    if (!event.isComposing && event.key !== "Shift" && !event.altKey && !event.ctrlKey && !event.metaKey) {
+      report(["Tab","ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key) ? "keyboard-navigation" : "keyboard");
+    }
+  }, { capture: true });
+})();
+</script>
+<script>
+(() => {
+  const bubbledClicks = new WeakSet();
+  const interactiveSelector = [
+    "button", "input", "select", "textarea", "label", "summary", "a[href]",
+    "audio[controls]", "video[controls]", "[onclick]", "[data-visualization-interactive]",
+    '[contenteditable]:not([contenteditable="false"])',
+    ...[
+      "button", "checkbox", "combobox", "gridcell", "link", "listbox",
+      "menuitem", "menuitemcheckbox", "menuitemradio", "option", "radio",
+      "scrollbar", "searchbox", "slider", "spinbutton", "switch", "tab",
+      "textbox", "treeitem",
+    ].map((role) => '[role~="' + role + '"]'),
+  ].join(",");
+
+  globalThis.addEventListener("click", (event) => bubbledClicks.add(event));
+  globalThis.addEventListener("click", (event) => {
+    // Capture the path before a control can remove itself. Custom delegated
+    // controls can opt in with data-visualization-interactive.
+    const elements = event.composedPath().filter((target) => target instanceof Element);
+    const isInteractiveTarget = elements.some((element) =>
+      element.matches(interactiveSelector) ||
+      (element.hasAttribute("tabindex") && element.tabIndex >= 0)) ||
+      (elements[0] != null && getComputedStyle(elements[0]).cursor === "pointer");
+    // Use a task, not a microtask: native dispatch can run microtasks between
+    // listeners. Propagation flags are reset when dispatch finishes:
+    // https://dom.spec.whatwg.org/#concept-event-dispatch
+    globalThis.setTimeout(() => {
+      void globalThis.openai.callTool("__codex_inline_visualization_click__", {
+        isInteractive: isInteractiveTarget || event.defaultPrevented ||
+          (event.bubbles && !bubbledClicks.has(event)),
+      }).catch(() => {});
+    }, 0);
+  }, { capture: true });
+})();
+</script>
+<script>
+(() => {
+  globalThis.addEventListener("keydown", (event) => {
+    if (event.isComposing || event.altKey || event.ctrlKey || event.metaKey ||
+      event.shiftKey || !["ArrowLeft", "ArrowRight", "Escape"].includes(event.key)) {
+      return;
+    }
+    const target = event.composedPath().find((element) => element instanceof HTMLElement);
+    const editable = target?.closest("[contenteditable]");
+    const editing = target && (target.isContentEditable ||
+      (editable && editable.getAttribute("contenteditable") !== "false") ||
+      target.closest('input, textarea, select, [role="slider"], [role="spinbutton"], [role="combobox"], [role="listbox"], [role="grid"], [role="tree"], [role="tablist"], [role="menu"]'));
+    if (event.key !== "Escape" && editing) { return; }
+    // Let the widget handle the key before forwarding it across the sandbox.
+    globalThis.setTimeout(() => {
+      if (!event.defaultPrevented && globalThis.openai?.displayMode === "fullscreen") {
+        void globalThis.openai.callTool("__codex_inline_visualization_preview_key__", {
+          key: event.key,
+        }).catch(() => {});
+      }
+    }, 0);
+  });
+})();
+</script>
+
+
+
+
+<script>
+(() => {
+  const contentRange = document.createRange();
+  let previousMeasurement = null;
+  let heightReportTimer = null;
+  const reportHeight = () => {
+    const bodyChildren = Array.from(document.body.children).filter(
+      (element) =>
+        element.tagName !== "SCRIPT" &&
+        element.tagName !== "STYLE" &&
+        element.getAttribute("role") !== "tooltip",
+    );
+    const bodyStyle = globalThis.getComputedStyle(document.body);
+    const contentWidth = Math.max(
+      0,
+      Math.round(
+        globalThis.innerWidth -
+          parseFloat(bodyStyle.paddingLeft) -
+          parseFloat(bodyStyle.paddingRight),
+      ),
+    );
+    let contentHeight;
+    if (bodyChildren.length === 0) {
+      contentRange.selectNodeContents(document.body);
+      contentHeight = contentRange.getBoundingClientRect().height;
+    } else if (bodyChildren.length === 1) {
+      const [bodyChild] = bodyChildren;
+      const childRect = bodyChild.getBoundingClientRect();
+      // Child margins can collapse above the root without adding to its height.
+      // The host adds body padding separately.
+      contentHeight =
+        Math.max(bodyChild.scrollHeight, childRect.height) +
+        Math.max(
+          0,
+          childRect.top -
+            document.body.getBoundingClientRect().top -
+            parseFloat(bodyStyle.paddingTop),
+        );
+    } else {
+      const bodyTop = document.body.getBoundingClientRect().top;
+      contentHeight = Math.max(
+        ...bodyChildren.map(
+          (bodyChild) => bodyChild.getBoundingClientRect().bottom - bodyTop,
+        ),
+      );
+    }
+    const viewportHeight = globalThis.innerHeight;
+    const previous = previousMeasurement;
+    previousMeasurement = { contentHeight, contentWidth, viewportHeight };
+    if (
+      previous != null &&
+      contentWidth === previous.contentWidth &&
+      contentHeight - previous.contentHeight ===
+        viewportHeight - previous.viewportHeight
+    ) {
+      return;
+    }
+
+    void globalThis.openai
+      .callTool(
+        "__codex_inline_visualization_height__",
+        { height: contentHeight, width: contentWidth },
+      )
+      .catch(() => {});
+  };
+  const scheduleHeightReport = () => {
+    if (heightReportTimer != null) {
+      return;
+    }
+    // Offscreen frames can suspend animation callbacks while their content loads.
+    heightReportTimer = globalThis.setTimeout(() => {
+      heightReportTimer = null;
+      reportHeight();
+    }, 0);
+  };
+
+  const resizeObserver = new ResizeObserver(scheduleHeightReport);
+  const observeBodyChildren = () => {
+    for (const element of document.body.children) {
+      resizeObserver.observe(element);
+    }
+  };
+  resizeObserver.observe(document.body);
+  observeBodyChildren();
+  new MutationObserver(() => {
+    observeBodyChildren();
+    scheduleHeightReport();
+  }).observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["style", "class", "height", "width"],
+  });
+  globalThis.addEventListener("resize", scheduleHeightReport);
+  reportHeight();
+})();
+</script>
+<style id="codex-visualization-document-scrollbar">html,body{scrollbar-width:none!important}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important}</style>
+
+
+</body></html>
